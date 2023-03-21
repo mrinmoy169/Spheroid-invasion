@@ -1,0 +1,66 @@
+<CompuCell3D>
+   
+   <Metadata>
+      
+      <!-- Basic properties simulation -->
+      <NumberOfProcessors>32</NumberOfProcessors>
+      <DebugOutputFrequency>5000</DebugOutputFrequency>
+      <!-- <NonParallelModule Name="Potts"/> -->
+   </Metadata>
+   
+   <Potts>
+      <!-- Basic properties of CPM (GGH) algorithm -->
+  <Dimensions x="250" y="250" z="250"/>
+      <Steps>45010</Steps>
+      <FluctuationAmplitude>
+            <FluctuationAmplitudeParameters CellType="E" FluctuationAmplitude="1.0"/>
+            <FluctuationAmplitudeParameters CellType="T" FluctuationAmplitude="1.0"/>
+        </FluctuationAmplitude>
+      <NeighborOrder>2</NeighborOrder>
+      <Boundary_x>Periodic</Boundary_x>
+      <Boundary_y>Periodic</Boundary_y>
+      <Boundary_z>Periodic</Boundary_z>
+   </Potts>
+   
+   <Plugin Name="CellType">
+      <CellType TypeId="0" TypeName="Medium"/>
+      <CellType TypeId="1" TypeName="E"/>
+      <CellType TypeId="2" TypeName="T"/>
+   </Plugin>
+   
+   <Plugin Name="Volume"/>
+
+    <Plugin Name="Surface"/>
+
+<Plugin Name="ExternalPotential">
+   <Algorithm>CenterOfMassBased</Algorithm>
+</Plugin>
+
+   <Plugin Name="NeighborTracker"/>
+    
+   <Plugin Name="PixelTracker"/>
+   
+
+<Plugin Name="Contact">
+   <Energy Type1="Medium" Type2="Medium">0.0</Energy>
+   <Energy Type1="Medium" Type2="E">20.0</Energy>
+   <Energy Type1="Medium" Type2="T">3.0</Energy>
+   <Energy Type1="E" Type2="E">6.0</Energy>
+   <Energy Type1="E" Type2="T">1.0</Energy>
+   <Energy Type1="T" Type2="T">6.0</Energy>
+   <NeighborOrder>2</NeighborOrder>
+</Plugin>
+ 
+<Steppable Type="BlobInitializer">
+   
+   <Region>
+      <Center x="125" y="125" z="125"/>
+      <Radius>50</Radius>
+      <Gap>0</Gap>
+      <Width>5</Width>
+      <Types>E</Types>
+   </Region>
+</Steppable>
+
+</CompuCell3D>
+
